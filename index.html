@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>StudyMate - Student Study Management</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- =========================================
+         SIDEBAR
+    ========================================== -->
+
+    <aside class="sidebar" id="sidebar">
+
+        <div class="logo">
+
+            <div class="logo-icon">
+                📚
+            </div>
+
+            <div>
+                <h2>StudyMate</h2>
+                <p>Study smarter</p>
+            </div>
+
+        </div>
+
+
+        <nav>
+
+            <button
+                class="nav-item active"
+                onclick="showSection('dashboard')"
+            >
+                🏠
+                <span>Dashboard</span>
+            </button>
+
+
+            <button
+                class="nav-item"
+                onclick="showSection('subjects')"
+            >
+                📚
+                <span>My Subjects</span>
+            </button>
+
+
+            <button
+                class="nav-item"
+                onclick="showSection('materials')"
+            >
+                📂
+                <span>Materials</span>
+            </button>
+
+
+            <button
+                class="nav-item"
+                onclick="showSection('progress')"
+            >
+                📊
+                <span>Progress</span>
+            </button>
+
+        </nav>
+
+
+        <div class="sidebar-bottom">
+
+            <div class="student-mini">
+
+                <div class="avatar">
+                    M
+                </div>
+
+                <div>
+                    <strong>Student</strong>
+                    <small>Keep learning!</small>
+                </div>
+
+            </div>
+
+        </div>
+
+    </aside>
+
+
+    <!-- =========================================
+         MAIN CONTENT
+    ========================================== -->
+
+    <main class="main">
+
+
+        <!-- TOP BAR -->
+
+        <header class="topbar">
+
+            <button
+                class="menu-btn"
+                onclick="toggleSidebar()"
+            >
+                ☰
+            </button>
+
+
+            <div class="search-box">
+
+                🔍
+
+                <input
+                    type="text"
+                    id="searchInput"
+                    placeholder="Search subjects or materials..."
+                    oninput="searchContent()"
+                >
+
+            </div>
+
+
+            <div class="profile">
+
+                <div class="notification">
+                    🔔
+                </div>
+
+                <div class="profile-avatar">
+                    M
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- =========================================
+             DASHBOARD
+        ========================================== -->
+
+        <section
+            id="dashboard"
+            class="section active-section"
+        >
+
+            <div class="welcome">
+
+                <div>
+
+                    <p class="small-text">
+                        WELCOME BACK 👋
+                    </p>
+
+                    <h1>
+                        Good Morning, Student!
+                    </h1>
+
+                    <p>
+                        Let's make today productive and
+                        achieve your study goals.
+                    </p>
+
+                </div>
+
+
+                <div class="welcome-icon">
+                    🎓
+                </div>
+
+            </div>
+
+
+            <!-- STAT CARDS -->
+
+            <div class="stats-grid">
+
+
+                <div class="stat-card purple">
+
+                    <div class="stat-icon">
+                        📚
+                    </div>
+
+                    <div>
+
+                        <span>Total Subjects</span>
+
+                        <h2 id="totalSubjects">
+                            0
+                        </h2>
+
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card blue">
+
+                    <div class="stat-icon">
+                        📂
+                    </div>
+
+                    <div>
+
+                        <span>Study Materials</span>
+
+                        <h2 id="totalMaterials">
+                            0
+                        </h2>
+
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card green">
+
+                    <div class="stat-icon">
+                        📊
+                    </div>
+
+                    <div>
+
+                        <span>Overall Progress</span>
+
+                        <h2 id="overallProgress">
+                            0%
+                        </h2>
+
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card orange">
+
+                    <div class="stat-icon">
+                        ✅
+                    </div>
+
+                    <div>
+
+                        <span>Topics Completed</span>
+
+                        <h2 id="completedTopics">
+                            0
+                        </h2>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- OVERALL PROGRESS -->
+
+            <div class="card progress-card">
+
+                <div class="card-heading">
+
+                    <div>
+
+                        <h2>
+                            Overall Study Progress
+                        </h2>
+
+                        <p>
+                            Track your progress across
+                            all subjects.
+                        </p>
+
+                    </div>
+
+
+                    <strong id="progressText">
+                        0%
+                    </strong>
+
+                </div>
+
+
+                <div class="progress-bar large">
+
+                    <div id="overallProgressBar"></div>
+
+                </div>
+
+            </div>
+
+
+            <!-- SUBJECTS -->
+
+            <div class="section-heading">
+
+                <div>
+
+                    <h2>
+                        My Subjects
+                    </h2>
+
+                    <p>
+                        Manage your subjects and
+                        study resources.
+                    </p>
+
+                </div>
+
+
+                <button
+                    class="primary-btn"
+                    onclick="openSubjectModal()"
+                >
+                    + Add Subject
+                </button>
+
+            </div>
+
+
+            <div
+                id="dashboardSubjects"
+                class="subjects-grid"
+            ></div>
+
+        </section>
+
+
+        <!-- =========================================
+             SUBJECTS SECTION
+        ========================================== -->
+
+        <section
+            id="subjects"
+            class="section"
+        >
+
+            <div class="page-title">
+
+                <div>
+
+                    <p class="small-text">
+                        ACADEMIC
+                    </p>
+
+                    <h1>
+                        My Subjects 📚
+                    </h1>
+
+                    <p>
+                        Add and manage all your subjects.
+                    </p>
+
+                </div>
+
+
+                <button
+                    class="primary-btn"
+                    onclick="openSubjectModal()"
+                >
+                    + Add Subject
+                </button>
+
+            </div>
+
+
+            <div
+                id="allSubjects"
+                class="subjects-grid"
+            ></div>
+
+        </section>
+
+
+        <!-- =========================================
+             MATERIALS SECTION
+        ========================================== -->
+
+        <section
+            id="materials"
+            class="section"
+        >
+
+            <div class="page-title">
+
+                <div>
+
+                    <p class="small-text">
+                        RESOURCES
+                    </p>
+
+                    <h1>
+                        Study Materials 📂
+                    </h1>
+
+                    <p>
+                        Keep all your study resources organised.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="materials-layout">
+
+
+                <!-- UPLOAD CARD -->
+
+                <div class="card">
+
+                    <div class="card-heading">
+
+                        <div>
+
+                            <h2>
+                                Upload Study Material
+                            </h2>
+
+                            <p>
+                                Add textbooks, solutions,
+                                notes, PDFs and other resources.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <form id="materialForm">
+
+
+                        <label>
+                            Subject
+                        </label>
+
+                        <select
+                            id="materialSubject"
+                            required
+                        ></select>
+
+
+                        <label>
+                            Material Name
+                        </label>
+
+                        <input
+                            type="text"
+                            id="materialName"
+                            placeholder="Example: Web Programming Unit 1"
+                            required
+                        >
+
+
+                        <label>
+                            Material Type
+                        </label>
+
+                        <select id="materialType">
+
+                            <option value="Textbook">
+                                📖 Textbook
+                            </option>
+
+                            <option value="Solution">
+                                📝 Solution
+                            </option>
+
+                            <option value="Notes">
+                                📄 Study Notes
+                            </option>
+
+                            <option value="PDF">
+                                📕 PDF
+                            </option>
+
+                            <option value="Presentation">
+                                📊 Presentation
+                            </option>
+
+                            <option value="Video">
+                                🎥 Video
+                            </option>
+
+                            <option value="Other">
+                                📎 Other
+                            </option>
+
+                        </select>
+
+
+                        <label>
+                            Choose File
+                        </label>
+
+                        <input
+                            type="file"
+                            id="materialFile"
+                            required
+                        >
+
+
+                        <button
+                            type="submit"
+                            class="primary-btn full-btn"
+                        >
+                            + Add Material
+                        </button>
+
+                    </form>
+
+                </div>
+
+
+                <!-- RESOURCE CATEGORIES -->
+
+                <div class="card">
+
+                    <div class="card-heading">
+
+                        <div>
+
+                            <h2>
+                                Resource Categories
+                            </h2>
+
+                            <p>
+                                Click a category to view
+                                your resources.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- TEXTBOOK -->
+
+                    <div
+                        class="resource-category textbook"
+                        onclick="filterMaterials('Textbook')"
+                    >
+
+                        <div class="category-icon">
+                            📖
+                        </div>
+
+                        <div>
+
+                            <strong>
+                                Textbooks
+                            </strong>
+
+                            <p>
+                                Reference books for your subjects
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- SOLUTIONS -->
+
+                    <div
+                        class="resource-category solution"
+                        onclick="filterMaterials('Solution')"
+                    >
+
+                        <div class="category-icon">
+                            📝
+                        </div>
+
+                        <div>
+
+                            <strong>
+                                Solutions
+                            </strong>
+
+                            <p>
+                                Question papers and solved answers
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- NOTES -->
+
+                    <div
+                        class="resource-category notes"
+                        onclick="filterMaterials('Notes')"
+                    >
+
+                        <div class="category-icon">
+                            📄
+                        </div>
+
+                        <div>
+
+                            <strong>
+                                Study Notes
+                            </strong>
+
+                            <p>
+                                Personal notes and class materials
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- SHOW ALL -->
+
+                    <button
+                        class="primary-btn full-btn"
+                        onclick="renderMaterials()"
+                    >
+                        📂 Show All Resources
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- MY RESOURCES -->
+
+            <div class="card materials-list-card">
+
+                <div class="card-heading">
+
+                    <div>
+
+                        <h2>
+                            My Resources
+                        </h2>
+
+                        <p id="resourceListTitle">
+                            All your study materials in one place.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div id="materialsList"></div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================================
+             PROGRESS SECTION
+        ========================================== -->
+
+        <section
+            id="progress"
+            class="section"
+        >
+
+            <div class="page-title">
+
+                <div>
+
+                    <p class="small-text">
+                        TRACKING
+                    </p>
+
+                    <h1>
+                        Study Progress 📊
+                    </h1>
+
+                    <p>
+                        Monitor your learning progress
+                        subject by subject.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="card progress-overview">
+
+
+                <div class="big-progress">
+
+                    <div class="progress-circle">
+
+                        <span id="circleProgress">
+                            0%
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div>
+
+                    <h2>
+                        Your Overall Progress
+                    </h2>
+
+                    <p>
+                        Keep completing topics to improve
+                        your overall study progress.
+                    </p>
+
+
+                    <div class="progress-bar">
+
+                        <div id="progressPageBar"></div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div id="progressSubjects"></div>
+
+        </section>
+
+    </main>
+
+
+    <!-- =========================================
+         SUBJECT MODAL
+    ========================================== -->
+
+    <div
+        class="modal"
+        id="subjectModal"
+    >
+
+        <div class="modal-content">
+
+            <button
+                class="close-btn"
+                onclick="closeSubjectModal()"
+            >
+                ×
+            </button>
+
+
+            <div class="modal-icon">
+                📚
+            </div>
+
+
+            <h2>
+                Add New Subject
+            </h2>
+
+            <p>
+                Create a subject and start organising
+                your resources.
+            </p>
+
+
+            <form id="subjectForm">
+
+
+                <label>
+                    Subject Name
+                </label>
+
+                <input
+                    type="text"
+                    id="subjectName"
+                    placeholder="Example: Web Programming"
+                    required
+                >
+
+
+                <label>
+                    Subject Icon
+                </label>
+
+                <select id="subjectIcon">
+
+                    <option value="💻">
+                        💻 Computer
+                    </option>
+
+                    <option value="📘">
+                        📘 Book
+                    </option>
+
+                    <option value="🔐">
+                        🔐 Security
+                    </option>
+
+                    <option value="📊">
+                        📊 Data
+                    </option>
+
+                    <option value="🧮">
+                        🧮 Mathematics
+                    </option>
+
+                    <option value="🌐">
+                        🌐 Web
+                    </option>
+
+                </select>
+
+
+                <button
+                    type="submit"
+                    class="primary-btn full-btn"
+                >
+                    Create Subject
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================================
+         TOPIC MODAL
+    ========================================== -->
+
+    <div
+        class="modal"
+        id="topicModal"
+    >
+
+        <div class="modal-content">
+
+            <button
+                class="close-btn"
+                onclick="closeTopicModal()"
+            >
+                ×
+            </button>
+
+
+            <div class="modal-icon">
+                📝
+            </div>
+
+
+            <h2>
+                Add Topic
+            </h2>
+
+            <p>
+                Add a topic or unit to this subject.
+            </p>
+
+
+            <form id="topicForm">
+
+
+                <input
+                    type="hidden"
+                    id="topicSubjectId"
+                >
+
+
+                <label>
+                    Topic Name
+                </label>
+
+                <input
+                    type="text"
+                    id="topicName"
+                    placeholder="Example: Introduction to HTML"
+                    required
+                >
+
+
+                <button
+                    type="submit"
+                    class="primary-btn full-btn"
+                >
+                    Add Topic
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+    <!-- JAVASCRIPT -->
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
