@@ -31,3 +31,16 @@ StudyMate/
 ├── style.css
 ├── script.js
 └── README.md
+## Screenshots
+
+### Dashboard
+![Dashboard](dashboard.png)
+
+### Subjects
+![Subjects](subjects.png)
+
+### Study Materials
+![Study Materials](materials.png)
+
+### Progress
+![Progress](progress.png)
